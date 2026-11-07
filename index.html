@@ -236,6 +236,48 @@ textarea{
   color:var(--ink);font-family:inherit;font-size:14px;line-height:1.45;outline:none;resize:vertical;
 }
 .ed-strumenti{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+
+/* ---------- biga ---------- */
+.blocco.biga .segm{margin:12px 14px 6px}
+.param select{
+  padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);
+  max-width:60%;font-size:14px;outline:none;
+}
+.param.b-quando{flex-wrap:wrap}
+.param.b-quando label{flex:1 1 100%}
+.param input[type=datetime-local]{width:auto;min-width:0;flex:1 1 auto;text-align:left;font-size:15px;padding:9px 10px}
+.bm{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 14px 6px}
+.bm > div{background:var(--bg);border:1px solid var(--line-soft);border-radius:10px;padding:8px 10px;min-width:0}
+.bm .v{font-family:var(--serif);font-size:17px;line-height:1.2;font-variant-numeric:tabular-nums}
+.bm .l{font-size:11px;color:var(--ink-faint);margin-top:1px}
+.biga-passi{margin:4px 14px 8px;padding:0;list-style:none}
+.biga-passi li{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line-soft);font-size:14px;line-height:1.45}
+.biga-passi li:last-child{border-bottom:none}
+.biga-passi .q{flex:0 0 96px;font-family:var(--serif);color:var(--crust);font-variant-numeric:tabular-nums}
+.biga-passi li.passato{opacity:.45}
+.prog{height:6px;background:var(--line-soft);border-radius:3px;margin:2px 14px 8px;overflow:hidden}
+.prog span{display:block;height:100%;background:var(--crust)}
+.b-avvisi{padding:2px 14px 0}
+.b-nota{font-size:12.5px;color:var(--ink-faint);padding:4px 14px 8px;line-height:1.45}
+.chip.on{background:var(--crust);color:#fff;border-color:var(--crust)}
+.campo-biga{display:flex;align-items:center;gap:7px;width:100%;margin:2px 0 4px;font-size:15px;color:var(--ink-soft)}
+.campo-biga input{
+  width:92px;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);
+  font-family:var(--serif);font-size:20px;font-variant-numeric:tabular-nums;text-align:right;outline:none;-moz-appearance:textfield;
+}
+.campo-biga input#in-q{width:66px}
+.sotto-campo input.cb-w{width:84px;padding:6px 9px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font-family:var(--serif);font-size:18px;text-align:right;outline:none;-moz-appearance:textfield}
+.sotto-campo input.cb-w::-webkit-outer-spin-button,.sotto-campo input.cb-w::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.campo-biga input:focus{border-color:var(--crust)}
+.campo-biga input::-webkit-outer-spin-button,.campo-biga input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.riga-ric.biga-run{border-color:var(--crust)}
+.blocco.biga details{border-top:1px solid var(--line-soft)}
+.blocco.biga details > summary{padding:10px 14px;font-size:14px;color:var(--ink-soft);cursor:pointer}
+.b-segni{padding:0 14px 10px;font-size:13.5px;line-height:1.5}
+.b-segni p{margin:0 0 7px}
+.b-uso{border-top:1px solid var(--line-soft);padding-top:6px}
+.b-x{border:1px solid var(--line);background:var(--bg);border-radius:8px;color:var(--ink-faint);font-size:16px;width:30px;height:30px;flex:none}
+@media print{ #biga-in,.blocco.biga .ed-azioni,.blocco.biga details{display:none!important} }
 </style>
 </head>
 <body>
@@ -290,6 +332,27 @@ textarea{
 <script>
 // ==DATI==
 const DI_SERIE = [
+
+{ id:"pizza-calbal", nome:"Impasto pizza CalBal", sub:"lievito, tempi e temperature come CalBal", cat:"Pizza",
+  calbal:1, noIdro:1 },
+
+{ id:"biga", nome:"Biga", sub:"per qualsiasi impasto, scegli la percentuale", cat:"Preimpasti",
+  tipo:"pre", soloBiga:1,
+  pre:{ nome:"Biga", quota:0.5, acqua:0.44, lievito:0.01 },
+  idro:0.65, lievImpasto:0, altri:[],
+  proc:[
+    "Sciogli il lievito nell'acqua alla temperatura indicata sotto.",
+    "Versa sulla farina e impasta 2-3 minuti a bassa velocità, o a mano con la punta delle dita.",
+    "Fermati quando la farina ha preso tutta l'acqua: grumi grossi e irregolari, mai una palla liscia.",
+    "In un contenitore alto e stretto, chiuso, senza schiacciarla.",
+    "Al reimpasto spezzala con l'acqua del reimpasto prima di aggiungere il resto della farina."
+  ],
+  note:[
+    "La percentuale è la farina della biga sulla farina totale dell'impasto: biga al 50% con 1000 g di farina vuol dire 500 g nella biga e 500 g al reimpasto.",
+    "Più biga dà più profumo e alveolatura, ma un impasto meno tenace: al 100% serve una farina forte e mano leggera nel reimpasto.",
+    "L'idratazione finale, il sale e il resto dipendono dall'impasto che fai: qui c'è solo la biga."
+  ]
+},
 
 { id:"focaccia-genovese", nome:"Focaccia genovese", sub:"impasto diretto", cat:"Focacce", foglio:"Focaccia genovese 1",
   gruppi:[
@@ -774,13 +837,13 @@ const DI_SERIE = [
 // ==FINE DATI==
 
 // ==MOTORE==
-const CATEGORIE = ["Pizza","Focacce","Pane","Colazione e dolci"];
+const CATEGORIE = ["Pizza","Focacce","Pane","Colazione e dolci","Preimpasti"];
 const CHIAVE = "impasti_v2";
 
 // Le ricette di serie stanno nel sorgente. Le modifiche e le ricette nuove
 // vivono in localStorage e si sovrappongono, non sostituiscono: aggiornando il
 // file HTML quello che hai scritto resta.
-const STORE = { pref:[], saleRidotto:false, perRic:{}, mod:{}, nuove:[] };
+const STORE = { pref:[], saleRidotto:false, perRic:{}, mod:{}, nuove:[], diario:[] };
 let storageOk = true;
 let RICETTE = [];
 
@@ -804,6 +867,7 @@ function carica(){
     if (d.perRic && typeof d.perRic === "object") STORE.perRic = d.perRic;
     if (d.mod && typeof d.mod === "object") STORE.mod = d.mod;
     if (Array.isArray(d.nuove)) STORE.nuove = d.nuove;
+    if (Array.isArray(d.diario)) STORE.diario = d.diario;
   }catch(e){}
 }
 function ricostruisci(){
@@ -825,7 +889,14 @@ function baseDi(r){
 // (farina, peso impasto, pezzi, preimpasto) si riconduce a un solo fattore.
 function dosi(r, F){
   let gr;
-  if (r.tipo === "pre"){
+  if (r.tipo === "pre" && r.soloBiga){
+    const FP = F*r.pre.quota;
+    gr = [
+      {t:"Biga", r:[ {n:"Farina", g:FP, f:1}, {n:"Acqua", g:FP*r.pre.acqua, w:1}, {n:"Lievito di birra fresco", g:FP*r.pre.lievito} ]},
+      {t:"Resta per il reimpasto", extra:1, r:[ {n:"Farina da aggiungere", g:F-FP, f:1, e:"acqua, sale e il resto secondo l'impasto"} ]}
+    ];
+    if (F-FP < 0.5) gr.pop();
+  } else if (r.tipo === "pre"){
     const FP = F*r.pre.quota, Fa = F-FP;
     const aP = FP*r.pre.acqua, lP = FP*r.pre.lievito;
     const aI = F*r.idro - aP;
@@ -888,11 +959,14 @@ function statoRic(r){
   Object.keys(def).forEach(k => { if (s[k] === undefined) s[k] = def[k]; });
   if (s.driver === "pezzi" && !(r.resa && r.resa.length)) s.driver = "farina";
   if (s.driver === "pre" && r.tipo !== "pre") s.driver = "farina";
+  if (r.soloBiga) s.driver = "farina";
   if (!(s.iResa >= 0) || !r.resa || s.iResa >= r.resa.length) s.iResa = 0;
   return s;
 }
 
 /* ---------- formattazione ---------- */
+const dlPre = nome => (/biga/i.test(nome) ? "della " : "del ")+String(nome).toLowerCase();
+const nelPre = nome => (/biga/i.test(nome) ? "nella " : "nel ")+String(nome).toLowerCase();
 const nf = (v,d) => v.toLocaleString("it-IT",{minimumFractionDigits:d, maximumFractionDigits:d});
 function g(v){
   if (!isFinite(v)) return "0";
@@ -936,6 +1010,7 @@ function renderLista(){
   const filtro = r => !testo || (r.nome+" "+(r.sub||"")+" "+r.cat).toLowerCase().includes(testo);
   let html = "";
   if (!storageOk) html += '<div class="avviso">Questo browser non salva niente su file locale. Le dosi funzionano, le modifiche alle ricette si perdono chiudendo la pagina. Aprila da un server o online.</div>';
+  if (!testo) html += bigheInCorso();
   const pref = RICETTE.filter(r => STORE.pref.includes(r.id) && filtro(r));
   if (pref.length) html += blocco("Preferite", pref);
   const cat = CATEGORIE.concat(RICETTE.map(r => r.cat).filter(c => CATEGORIE.indexOf(c) < 0));
@@ -945,6 +1020,18 @@ function renderLista(){
   });
   if (!html) html = '<p class="vuoto">Nessuna ricetta con questo nome.</p>';
   elenco.innerHTML = html;
+}
+function bigheInCorso(){
+  const att = RICETTE.filter(r => isBiga(r) && STORE.perRic[r.id] && STORE.perRic[r.id].biga && STORE.perRic[r.id].biga.avvio);
+  if (!att.length) return "";
+  return '<div class="gruppo-cat">Bighe in corso</div>' + att.map(r => {
+    const a = STORE.perRic[r.id].biga.avvio;
+    const pronta = new Date(new Date(a.inizio).getTime() + a.H*ORA);
+    const resto = (pronta - Date.now())/ORA;
+    const meta = resto > 0 ? "pronta verso "+quandoTxt(pronta)+", fra "+durata(resto) : "pronta da "+durata(-resto);
+    return '<div class="riga-ric biga-run"><button class="crescita" data-apri="'+esc(r.id)+'">'
+      + '<div class="nome">'+esc(r.nome)+'</div><div class="meta">'+esc(meta)+'</div></button></div>';
+  }).join("");
 }
 function blocco(titolo, rs){
   let h = '<div class="gruppo-cat">'+esc(titolo)+'</div>';
@@ -990,6 +1077,7 @@ function apri(id){
   mostra("det"); renderDettaglio();
 }
 function driversDi(r){
+  if (r.soloBiga) return [{id:"farina", l:"Farina impasto"}];
   const d = [{id:"farina", l:"Farina"}, {id:"impasto", l:"Impasto"}];
   if (r.resa && r.resa.length) d.push({id:"pezzi", l:"Pezzi"});
   if (r.tipo === "pre") d.push({id:"pre", l:r.pre.nome});
@@ -997,9 +1085,13 @@ function driversDi(r){
 }
 function renderDettaglio(){
   const r = sel; if (!r) return;
+  document.getElementById("btn-modifica").hidden = !!r.calbal;
+  document.getElementById("det-driver").style.display = "";
+  if (r.calbal) return renderCalbal(r);
   const s = statoRic(r);
 
   document.getElementById("det-titolo").innerHTML = esc(r.nome)+"<small>"+esc(r.sub||"")+"</small>";
+  document.getElementById("det-driver").style.display = r.soloBiga ? "none" : "";
   document.getElementById("det-driver").innerHTML = driversDi(r).map(d =>
     '<button data-drv="'+d.id+'" aria-pressed="'+(s.driver===d.id)+'">'+esc(d.l)+'</button>').join("");
 
@@ -1013,8 +1105,8 @@ function renderDettaglio(){
               '<option value="'+i+'"'+(i===s.iResa?" selected":"")+'>'+esc(x.n)+' \u00b7 '+g(x.g)+' g'+(x.su==="farina"?" di farina":"")+'</option>').join("")+'</select>';
   } else {
     const val = s.driver==="farina" ? s.vFarina : s.driver==="impasto" ? s.vImpasto : s.vPre;
-    et = s.driver==="farina" ? "g di farina totale"
-       : s.driver==="impasto" ? "g di impasto" : "g di farina nel "+r.pre.nome.toLowerCase();
+    et = s.driver==="farina" ? (r.soloBiga ? "g di farina totale dell'impasto" : "g di farina totale")
+       : s.driver==="impasto" ? "g di impasto" : "g di farina "+nelPre(r.pre.nome);
     campo = meno + '<input type="number" inputmode="decimal" min="0" step="10" id="in-val" value="'+Math.round(val)+'">' + piu;
   }
   document.getElementById("det-campo").innerHTML = campo;
@@ -1022,18 +1114,29 @@ function renderDettaglio(){
     '<span class="um">'+esc(et)+'</span><button class="fatto" id="btn-fatto" hidden>Fatto</button>';
 
   let chips = '<button class="chip" data-chip="farina:1000">Farina 1000 g</button>';
+  if (r.soloBiga) [0.5,0.7,0.9,1].forEach(q => chips += '<button class="chip'+(Math.abs(r.pre.quota-q) < 0.001 ? " on" : "")+'" data-chip="quota:'+q+'">Biga '+Math.round(q*100)+'%</button>');
   (r.resa||[]).forEach((x,i) => chips += '<button class="chip" data-chip="pezzi:'+i+':1">1 '+esc(x.n.toLowerCase())+'</button>');
   if (r.resa && r.resa.length) chips += '<button class="chip" data-chip="pezzi:0:2">2 '+esc(r.resa[0].p || r.resa[0].n.toLowerCase())+'</button>';
+  // biga sola: grammi nella biga e percentuale sono lo stesso dato visto da due lati
+  if (r.soloBiga){
+    const Fb = s.vFarina*r.pre.quota;
+    chips = '<div class="campo-biga"><span>nella biga</span>'
+      + '<input id="in-fb" type="number" inputmode="decimal" min="0" step="10" value="'+Math.round(Fb)+'"><span>g, cioè</span>'
+      + '<input id="in-q" type="number" inputmode="decimal" min="1" max="100" step="1" value="'+pcv(r.pre.quota)+'"><span>%</span></div>' + chips;
+  }
   document.getElementById("det-chips").innerHTML = chips;
 
   const F = farinaDaDriver(r), gr = dosi(r,F), t = totali(gr);
   let h = "";
 
   if (r.tipo === "pre"){
-    const aI = gr[1].r.find(x => x.n === "Acqua");
+    const aI = !r.soloBiga && gr[1] && gr[1].r.find(x => x.n === "Acqua");
     if (aI && aI.g < 0) h += '<div class="avviso">L\'acqua del '+esc(r.pre.nome.toLowerCase())+' supera l\'idratazione totale: l\'acqua dell\'impasto viene negativa. Alza l\'idratazione o abbassa l\'acqua del preimpasto.</div>';
   }
 
+  if (r.soloBiga){
+    h += '<div class="metriche">'+metricheBiga(r,gr).map(m => metrica(m[0], m[1])).join("")+'</div>';
+  } else {
   h += '<div class="metriche">'
     +  metrica(g(t.peso)+' <span style="font-size:13px">g</span>', "peso impasto")
     +  metrica(g(t.farina)+' <span style="font-size:13px">g</span>', "farina totale")
@@ -1044,7 +1147,8 @@ function renderDettaglio(){
     h += metrica(gp(n), Math.round(n) === 1 ? res.n.toLowerCase() : (res.p || res.n.toLowerCase()));
   }
   h += '</div>';
-  h += '<label class="riga-sale"><input type="checkbox" id="sale-rid"'+(STORE.saleRidotto?" checked":"")+'> Sale ridotto del 20%</label>';
+  }
+  if (!r.soloBiga) h += '<label class="riga-sale"><input type="checkbox" id="sale-rid"'+(STORE.saleRidotto?" checked":"")+'> Sale ridotto del 20%</label>';
 
   gr.forEach(grp => {
     h += '<div class="blocco"><h3>'+esc(grp.t)+'</h3>';
@@ -1057,13 +1161,16 @@ function renderDettaglio(){
     h += '</div>';
   });
 
+  if (isBiga(r)) h += '<div class="sez">Biga: tempi e temperature</div>'
+    + '<div class="blocco biga" id="biga-box"><div id="biga-in"></div><div id="biga-out"></div></div>';
+
   if (r.tipo === "pre"){
     h += '<details class="blocco"><summary>Percentuali</summary>'
-      +  campoPct("Farina nel "+r.pre.nome.toLowerCase(), "sulla farina totale", "pre.quota", r.pre.quota)
-      +  campoPct("Acqua del "+r.pre.nome.toLowerCase(), "sulla farina del preimpasto", "pre.acqua", r.pre.acqua)
-      +  campoPct("Lievito del "+r.pre.nome.toLowerCase(), "sulla farina del preimpasto", "pre.lievito", r.pre.lievito)
-      +  campoPct("Idratazione", "sulla farina totale", "idro", r.idro)
-      +  campoPct("Lievito nell'impasto", "sulla farina aggiunta", "lievImpasto", r.lievImpasto||0);
+      +  campoPct("Farina "+nelPre(r.pre.nome), "sulla farina totale dell'impasto", "pre.quota", r.pre.quota)
+      +  campoPct("Acqua "+dlPre(r.pre.nome), "sulla farina del preimpasto", "pre.acqua", r.pre.acqua)
+      +  campoPct("Lievito "+dlPre(r.pre.nome), "sulla farina del preimpasto", "pre.lievito", r.pre.lievito)
+      +  (r.soloBiga ? "" : campoPct("Idratazione", "sulla farina totale", "idro", r.idro)
+      +  campoPct("Lievito nell'impasto", "sulla farina aggiunta", "lievImpasto", r.lievImpasto||0));
     (r.altri||[]).forEach((a,i) => h += campoPct(a.n, a.su==="A" ? "sull'acqua totale" : a.su==="Fa" ? "sulla farina aggiunta" : "sulla farina totale", "altri."+i, a.v));
     h += '<div class="param" style="justify-content:flex-end"><span class="nota-file" style="padding:0">Quello che cambi qui resta salvato nella ricetta.</span></div></details>';
   }
@@ -1090,7 +1197,14 @@ function renderDettaglio(){
     +  (modificata(r.id) ? ' <button class="chip" id="btn-ripristina">Ripristina l\'originale</button>' : '')+'</footer>';
 
   document.getElementById("det-corpo").innerHTML = h;
+  if (isBiga(r)){ renderBigaIn(r); renderBigaOut(r); }
   aggancia();
+}
+function metricheBiga(r, gr){
+  const b = gr[0].r, peso = b[0].g + b[1].g + b[2].g;
+  const u = ' <span style="font-size:13px">g</span>';
+  return [[g(peso)+u, "peso della biga"], [g(b[0].g)+u, "farina della biga"],
+          [pc(r.pre.quota)+"%", "biga sull'impasto"], [gr[1] ? g(gr[1].r[0].g)+u : "tutta", gr[1] ? "farina al reimpasto" : "farina tutta nella biga"]];
 }
 const metrica = (v,l) => '<div class="metrica"><div class="v">'+v+'</div><div class="l">'+esc(l)+'</div></div>';
 const campoPct = (l,e,k,v) => '<div class="param"><label for="k-'+k+'">'+esc(l)+(e?'<em>'+esc(e)+'</em>':'')+'</label>'
@@ -1115,7 +1229,7 @@ function aggancia(){
     // su iPhone la tastiera numerica non ha invio: serve un modo per chiuderla
     inp.onfocus = () => { if (fatto) fatto.hidden = false; setTimeout(() => inp.select(), 0); };
     inp.onblur  = () => { if (fatto) fatto.hidden = true; };
-    if (fatto) fatto.onclick = () => { inp.blur(); renderDettaglio(); };
+    if (fatto) fatto.onclick = () => { if (document.activeElement) document.activeElement.blur(); renderDettaglio(); };
     document.querySelectorAll("[data-passo]").forEach(b => b.onclick = () => {
       const passo = s.driver === "pezzi" ? 1 : 50;
       const v = Math.max(0, num(inp.value) + passo*(+b.dataset.passo));
@@ -1123,11 +1237,30 @@ function aggancia(){
       scrivi(v);
     });
   }
+  const fb = document.getElementById("in-fb"), iq = document.getElementById("in-q");
+  if (fb && iq){
+    const mostraFatto = () => { if (fatto) fatto.hidden = false; };
+    const nascondi = () => { if (fatto) fatto.hidden = true; };
+    [fb, iq].forEach(x => { x.onfocus = () => { mostraFatto(); setTimeout(() => x.select(), 0); }; x.onblur = nascondi; });
+    fb.oninput = () => {
+      const F = s.vFarina; if (!(F > 0)) return;
+      const q = Math.min(1, Math.max(0, num(fb.value)/F));
+      if (q > 0){ impostaQuota(q); iq.value = pcv(q); }
+    };
+    iq.oninput = () => {
+      const q = Math.min(1, Math.max(0, num(iq.value)/100));
+      if (q > 0){ impostaQuota(q); fb.value = Math.round(s.vFarina*q); }
+    };
+  }
   const selr = document.getElementById("in-resa");
   if (selr) selr.onchange = () => { s.iResa = +selr.value; salva(); aggiornaSoloDosi(); };
 
   document.querySelectorAll("[data-chip]").forEach(b => b.onclick = () => {
     const p = b.dataset.chip.split(":");
+    if (p[0] === "quota"){
+      const copia = JSON.parse(JSON.stringify(r)); copia.pre.quota = +p[1];
+      scriviRicetta(copia); sel = RICETTE.find(x => x.id === r.id); return renderDettaglio();
+    }
     if (p[0] === "farina"){ s.driver = "farina"; s.vFarina = +p[1]; }
     else { s.driver = "pezzi"; s.iResa = +p[1]; s.vPezzi = +p[2]; }
     salva(); renderDettaglio();
@@ -1156,13 +1289,24 @@ function aggancia(){
   };
 }
 
+// cambia la percentuale di biga senza ridisegnare: la tastiera resta aperta
+function impostaQuota(q){
+  const copia = JSON.parse(JSON.stringify(sel)); copia.pre.quota = q;
+  scriviRicetta(copia); sel = RICETTE.find(x => x.id === copia.id);
+  document.querySelectorAll('[data-chip^="quota:"]').forEach(c => c.classList.toggle("on", Math.abs(+c.dataset.chip.slice(6) - q) < 0.001));
+  aggiornaSoloDosi();
+}
+
 // ridisegna solo dosi e metriche: non tocca il campo attivo, cosi' la tastiera
 // del telefono non si chiude a ogni cifra
 function aggiornaSoloDosi(){
   const r = sel, s = statoRic(r), F = farinaDaDriver(r);
   const gr = dosi(r,F), t = totali(gr);
   const met = document.querySelectorAll("#det-corpo .metrica .v");
-  let i = 0;
+  if (r.soloBiga) metricheBiga(r, gr).forEach((m,j) => { if (met[j]) met[j].innerHTML = m[0]; });
+  const fbx = document.getElementById("in-fb");
+  if (r.soloBiga && fbx && document.activeElement !== fbx) fbx.value = Math.round(F*r.pre.quota);
+  let i = r.soloBiga ? 99 : 0;
   if (met[i]) met[i++].innerHTML = g(t.peso)+' <span style="font-size:13px">g</span>';
   if (met[i]) met[i++].innerHTML = g(t.farina)+' <span style="font-size:13px">g</span>';
   if (!r.noIdro && met[i]) met[i++].textContent = g(t.idro*100)+"%";
@@ -1195,6 +1339,687 @@ function scriviRicetta(ric){
   }
   salva(); ricostruisci();
 }
+
+/* ---------- biga ---------- */
+// Il modello conta ore equivalenti a 18 gradi. Ogni ora passata a T gradi vale
+// velocita(T) ore a 18, e la biga è pronta quando la somma arriva al
+// fabbisogno. Cosi' casa, frigo e passaggi fra i due seguono la stessa regola.
+// Da 18 gradi in su i punti vengono dalla tabella della ciabatta: 18 ore a 18,
+// 16 a 20, 15 a 22, 14 a 24, 13 a 27. Il frigo e' tarato sulla stessa tabella
+// (20 ore in frigo e 4 fuori fanno una biga pronta): pesa piu' di quanto ci si
+// aspetti perche' la massa impiega ore a raffreddarsi. E' il punto piu' debole
+// del modello, e il diario lo corregge.
+const CURVA = [[0,0.55],[3.5,0.64],[5,0.70],[18,1],[20,1.125],[22,1.2],[24,1.286],[27,1.385],[32,1.55]];
+const BASE_ORE = 18;
+const ORA = 3600e3;
+function velocita(T){
+  if (!isFinite(T)) T = 18;
+  if (T <= CURVA[0][0]) return CURVA[0][1];
+  for (let i = 1; i < CURVA.length; i++){
+    const a = CURVA[i-1], b = CURVA[i];
+    if (T <= b[0]) return a[1] + (b[1]-a[1])*(T-a[0])/(b[0]-a[0]);
+  }
+  return CURVA[CURVA.length-1][1];
+}
+// sopra il 44% di acqua la biga matura prima: circa 2,5% di tempo in meno per punto
+const fattAcqua = a => a > 0.44 ? Math.max(0.75, 1 - 2.5*(a-0.44)) : 1;
+// meno lievito, piu' tempo: dimezzarlo allunga di circa un terzo
+const fattLievito = l => l > 0 ? Math.min(2, Math.max(0.6, Math.pow(0.01/l, 0.4))) : 2;
+const lievitoPer = (fl) => 0.01*Math.pow(fl, -2.5);
+
+const isBiga = r => !!(r && r.tipo === "pre" && r.pre && /biga/i.test(r.pre.nome || ""));
+const FARINE = {
+  debole:  {l:"W sotto 260",      maxOre:10},
+  media:   {l:"W 260-300",        maxOre:14},
+  forte:   {l:"W 300-350", maxOre:30},
+  manitoba:{l:"W oltre 350",      maxOre:48}
+};
+// gradi che l'impastatrice aggiunge in 2-3 minuti di biga
+const ATTRITO = { mano:{l:"a mano", v:2}, plan:{l:"planetaria", v:5}, spirale:{l:"spirale", v:9} };
+const MODI = { amb:"In casa", frigo:"Frigo, poi fuori", estate:"Fuori, poi frigo" };
+const NOTE_MODI = {
+  amb:"Biga corta: matura tutta a temperatura di casa.",
+  frigo:"Biga lunga: subito in frigo, poi finisce fuori.",
+  estate:"Per il caldo: parte fuori, poi il frigo la frena."
+};
+const ESITI = { indietro:"ancora indietro", giusta:"giusta", oltre:"già oltre" };
+const gruppoModo = m => m === "amb" ? "amb" : "frigo";
+let usoAperto = null, esitoScelto = "giusta";
+
+function bigaCfg(r){
+  const s = statoRic(r);
+  if (!s.biga || typeof s.biga !== "object") s.biga = {};
+  const def = { modo:"amb", tAmb:21, tFrigo:5, oreFrigo:20, oreFuori:2, tCucina:21, tFarina:21,
+    mix:"plan", tObj:20, farina:"forte", oreForno:3, ancora:"parto", quando:"" };
+  Object.keys(def).forEach(k => { if (s.biga[k] === undefined) s.biga[k] = def[k]; });
+  if (!MODI[s.biga.modo]) s.biga.modo = "amb";
+  if (!FARINE[s.biga.farina]) s.biga.farina = "forte";
+  if (!ATTRITO[s.biga.mix]) s.biga.mix = "plan";
+  return s.biga;
+}
+
+// mediana delle ultime bighe giuste: una biga storta non sposta tutto
+function correzione(gruppo){
+  const v = STORE.diario
+    .filter(d => d.esito === "giusta" && gruppoModo(d.modo) === gruppo && d.rapporto > 0)
+    .slice(-6).map(d => d.rapporto).sort((a,b) => a-b);
+  if (v.length < 2) return { k:1, n:v.length };
+  const m = v.length % 2 ? v[(v.length-1)/2] : (v[v.length/2-1] + v[v.length/2])/2;
+  return { k:Math.min(1.4, Math.max(0.7, m)), n:v.length };
+}
+
+function calcolaPiano(r, cfg){
+  const Umod = BASE_ORE*fattAcqua(r.pre.acqua)*fattLievito(r.pre.lievito);
+  const corr = correzione(gruppoModo(cfg.modo));
+  const U = Umod*corr.k;
+  const va = velocita(cfg.tAmb), vf = velocita(cfg.tFrigo);
+  let fasi;
+  if (cfg.modo === "frigo"){
+    const o = Math.max(0, cfg.oreFrigo);
+    fasi = o*vf >= U ? [{dove:"frigo", T:cfg.tFrigo, ore:U/vf}]
+                     : [{dove:"frigo", T:cfg.tFrigo, ore:o}, {dove:"fuori", T:cfg.tAmb, ore:(U-o*vf)/va}];
+  } else if (cfg.modo === "estate"){
+    const o = Math.max(0, cfg.oreFuori);
+    fasi = o*va >= U ? [{dove:"fuori", T:cfg.tAmb, ore:U/va}]
+                     : [{dove:"fuori", T:cfg.tAmb, ore:o}, {dove:"frigo", T:cfg.tFrigo, ore:(U-o*va)/vf}];
+  } else {
+    fasi = [{dove:"fuori", T:cfg.tAmb, ore:U/va}];
+  }
+  fasi = fasi.filter(f => f.ore > 0.01);
+  return { Umod, U, corr, fasi, H:fasi.reduce((s,f) => s+f.ore, 0), modo:cfg.modo };
+}
+// quante ore-equivalenti ha accumulato la biga dopo "ore" ore reali
+function unitaDopo(fasi, ore){
+  let u = 0, resto = ore;
+  fasi.forEach((f,i) => {
+    const h = i === fasi.length-1 ? resto : Math.min(resto, f.ore);
+    if (h > 0){ u += h*velocita(f.T); resto -= h; }
+  });
+  return u;
+}
+
+/* date: niente new Date("2026-11-07T20:15"), su Safari vecchi diventa UTC */
+const pad = n => String(n).padStart(2, "0");
+function daLocale(s){
+  const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(s || "");
+  return m ? new Date(+m[1], +m[2]-1, +m[3], +m[4], +m[5]) : null;
+}
+const aLocale = d => d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes());
+function adessoArrotondato(){
+  const d = new Date(); d.setSeconds(0,0);
+  d.setMinutes(Math.ceil(d.getMinutes()/5)*5);
+  return d;
+}
+function quandoTxt(d){
+  const oggi = new Date(); oggi.setHours(0,0,0,0);
+  const g0 = new Date(d); g0.setHours(0,0,0,0);
+  const diff = Math.round((g0 - oggi)/864e5);
+  const hh = pad(d.getHours())+":"+pad(d.getMinutes());
+  if (diff === 0) return "oggi "+hh;
+  if (diff === 1) return "domani "+hh;
+  if (diff === -1) return "ieri "+hh;
+  return d.toLocaleDateString("it-IT", {weekday:"short", day:"numeric"})+" "+hh;
+}
+function durata(h){
+  const m = Math.max(0, Math.round(h*60)), hh = Math.floor(m/60), mm = m % 60;
+  return hh ? hh+" h"+(mm ? " "+pad(mm) : "") : mm+" min";
+}
+const gradi = v => (Math.abs(v - Math.round(v)) < 0.05 ? nf(Math.round(v),0) : nf(Math.round(v*10)/10,1))+" gradi";
+const tile = (v,l) => '<div><div class="v">'+v+'</div><div class="l">'+esc(l)+'</div></div>';
+
+function inizioPiano(cfg, p){
+  const q = daLocale(cfg.quando);
+  if (cfg.ancora === "forno" && q) return new Date(q.getTime() - (p.H + cfg.oreForno)*ORA);
+  if (cfg.ancora === "parto" && q) return q;
+  return adessoArrotondato();
+}
+const tAcquaDi = cfg => 3*cfg.tObj - cfg.tFarina - cfg.tCucina - ATTRITO[cfg.mix].v;
+
+function passiBiga(p, inizio, oreForno, tAcq){
+  const P = [], t0 = inizio.getTime(), f0 = p.fasi[0];
+  const dove0 = !f0 ? "" : f0.dove === "frigo" ? "Subito in frigo a "+gradi(f0.T)+"." : "Coperta, a "+gradi(f0.T)+".";
+  P.push({ d:new Date(t0), tit:"Impasta la biga",
+    txt: tAcq === null ? "Biga impastata. "+dove0
+       : "Acqua a <b>"+gradi(tAcq)+"</b>, due o tre minuti: la farina prende tutta l'acqua e resta a grumi, non una palla liscia. "+dove0 });
+  let t = t0;
+  p.fasi.forEach((f,i) => {
+    if (i > 0) P.push({ d:new Date(t), tit:f.dove === "frigo" ? "Biga in frigo" : "Biga fuori dal frigo",
+      txt:f.dove === "frigo" ? "In frigo a "+gradi(f.T)+"." : "Fuori dal frigo, a "+gradi(f.T)+", sempre coperta." });
+    t += f.ore*ORA;
+  });
+  P.push({ d:new Date(t - Math.max(1, 0.1*p.H)*ORA), tit:"Controlla la biga", txt:"Prima occhiata: profumo, volume, filamenti dentro." });
+  P.push({ d:new Date(t), tit:"Biga pronta", txt:"Reimpasto con tutta la biga." });
+  if (oreForno > 0) P.push({ d:new Date(t + oreForno*ORA), tit:"In forno", txt:"Infornata, "+durata(oreForno)+" dopo il reimpasto." });
+  return P.sort((a,b) => a.d - b.d);
+}
+
+function avvisiBiga(r, cfg, p, inizio, tAcq){
+  const a = [], F = FARINE[cfg.farina];
+  if (p.H > F.maxOre)
+    a.push("Con farina "+F.l+" una biga di "+durata(p.H)+" non regge: la maglia cede prima. Serve una farina più forte, oppure più caldo o più lievito per accorciare.");
+  if (cfg.tAmb >= 24 && cfg.modo !== "frigo"){
+    const l16 = lievitoPer(fattLievito(r.pre.lievito)*16/p.H);
+    a.push("A "+gradi(cfg.tAmb)+" la biga corre e prende acido. Con il lievito allo "+nf(Math.round(l16*1000)/10,1)+"% torna verso le 16 ore, oppure scegli Fuori, poi frigo. D'estate aiutano anche 2 g di sale per kg di farina della biga.");
+  }
+  if (r.pre.acqua > 0.50) a.push("Acqua oltre il 50%: non è più una biga asciutta, matura molto prima e la stima regge poco.");
+  if (r.pre.lievito > 0.015) a.push("Lievito oltre l'1,5% nella biga: tempi corti, la stima regge poco.");
+  if (tAcq < 4) a.push("L'acqua dovrebbe stare a "+gradi(tAcq)+": l'acqua del frigo arriva a 4-5. Metti in frigo anche la farina, oppure raffredda con ghiaccio pesato dentro la dose d'acqua.");
+  if (tAcq > 35) a.push("Acqua sopra i 35 gradi: controlla le temperature inserite.");
+  const fr = p.fasi.find(f => f.dove === "frigo");
+  if (fr && fr.ore > 30) a.push(durata(fr.ore)+" di frigo: oltre le 30 ore la biga si indebolisce e la stima diventa incerta.");
+  if (cfg.modo === "frigo" && p.fasi.length === 1)
+    a.push("Con "+cfg.oreFrigo+" ore di frigo la biga matura già dentro: esce pronta, la fase fuori non serve. Togli ore di frigo se la vuoi.");
+  if (cfg.modo === "estate" && p.fasi.length === 1)
+    a.push("Matura tutta fuori prima di entrare in frigo: riduci le ore fuori.");
+  if (cfg.ancora === "forno" && inizio.getTime() < Date.now() - 5*60e3)
+    a.push("Per infornare a quell'ora la biga andava impastata "+quandoTxt(inizio)+". Sposta l'infornata, o accorcia con più caldo.");
+  return a;
+}
+
+function renderBigaIn(r){
+  const box = document.getElementById("biga-in"); if (!box) return;
+  const cfg = bigaCfg(r);
+  if (cfg.avvio){ box.innerHTML = ""; return; }
+  const num1 = (l,e,k,u,step) => '<div class="param"><label>'+esc(l)+(e?'<em>'+esc(e)+'</em>':'')+'</label>'
+    + '<input data-bk="'+k+'" type="number" inputmode="decimal" step="'+(step||0.5)+'" value="'+cfg[k]+'"><span class="um">'+u+'</span></div>';
+  const sel1 = (l,e,k,opz) => '<div class="param"><label>'+esc(l)+(e?'<em>'+esc(e)+'</em>':'')+'</label><select data-bs="'+k+'">'
+    + opz.map(o => '<option value="'+o[0]+'"'+(String(o[0]) === String(cfg[k]) ? " selected" : "")+'>'+esc(o[1])+'</option>').join("")+'</select></div>';
+
+  let h = '<div class="segm">'+Object.keys(MODI).map(k =>
+    '<button data-bmodo="'+k+'" aria-pressed="'+(cfg.modo === k)+'">'+MODI[k]+'</button>').join("")+'</div>'
+    + '<div class="b-nota" style="padding-top:0">'+NOTE_MODI[cfg.modo]+'</div>';
+  h += num1(cfg.modo === "amb" ? "Dove matura" : "Fuori dal frigo", "temperatura della stanza", "tAmb", "°C");
+  if (cfg.modo !== "amb"){
+    h += sel1("Frigo", "", "tFrigo", [[3.5,"3,5 gradi"],[4,"4 gradi"],[5,"5 gradi"],[6,"6 gradi"]]);
+    h += cfg.modo === "frigo" ? num1("Ore in frigo", "appena impastata", "oreFrigo", "h", 1)
+                              : num1("Ore fuori", "prima di entrare in frigo", "oreFuori", "h", 0.5);
+  }
+  h += sel1("Farina della biga", "", "farina", Object.keys(FARINE).map(k => [k, FARINE[k].l]));
+  h += num1("Cucina", "dove impasti", "tCucina", "°C");
+  h += num1("Farina", "temperatura del sacco", "tFarina", "°C");
+  h += sel1("Impasti", "", "mix", Object.keys(ATTRITO).map(k => [k, ATTRITO[k].l]));
+  h += '<div class="segm">'+[["parto","Da quando parto"],["forno","Da quando inforno"]].map(o =>
+    '<button data-bancora="'+o[0]+'" aria-pressed="'+(cfg.ancora === o[0])+'">'+o[1]+'</button>').join("")+'</div>';
+  h += '<div class="param b-quando"><label>'+(cfg.ancora === "forno" ? "Inforno" : "Impasto la biga")
+    +  (cfg.ancora === "parto" ? '<em>vuoto vuol dire adesso</em>' : '')+'</label>'
+    +  '<input type="datetime-local" data-bq value="'+esc(cfg.quando)+'">'
+    +  (cfg.ancora === "parto" ? '<button class="chip" data-badesso>adesso</button>' : '')+'</div>';
+  h += num1("Dal reimpasto al forno", "puntata, pezzatura, appretto", "oreForno", "h", 0.5);
+  h += num1("Biga a fine impasto", "temperatura che vuoi ottenere", "tObj", "°C");
+  box.innerHTML = h;
+}
+
+function renderBigaOut(r){
+  const box = document.getElementById("biga-out"); if (!box) return;
+  const cfg = bigaCfg(r), att = cfg.avvio, ora = Date.now();
+  let p, inizio, oreForno, tAcq = null;
+  if (att){ p = att; inizio = new Date(att.inizio); oreForno = att.oreForno; }
+  else {
+    p = calcolaPiano(r, cfg); inizio = inizioPiano(cfg, p);
+    oreForno = cfg.oreForno; tAcq = tAcquaDi(cfg);
+  }
+  const P = passiBiga(p, inizio, oreForno, tAcq);
+  const pronta = new Date(inizio.getTime() + p.H*ORA);
+  let h = "";
+
+  if (att){
+    const trascorse = Math.max(0, (ora - inizio.getTime())/ORA);
+    const perc = Math.min(1, unitaDopo(p.fasi, trascorse)/p.U);
+    const resto = (pronta - ora)/ORA;
+    h += '<div class="bm">'+tile(quandoTxt(pronta), "biga pronta")
+      +  tile(resto > 0 ? durata(resto) : durata(-resto), resto > 0 ? "mancano" : "è pronta da")
+      +  tile(Math.round(perc*100)+"%", "maturazione stimata")+'</div>'
+      +  '<div class="prog"><span style="width:'+Math.round(perc*100)+'%"></span></div>';
+  } else {
+    h += '<div class="bm">'+tile(quandoTxt(pronta), "biga pronta")
+      +  tile(durata(p.H), "maturazione")+tile(nf(Math.round(tAcq),0)+"°", "acqua")+'</div>';
+  }
+
+  h += '<ol class="biga-passi">'+P.map(x => '<li'+(att && x.d.getTime() < ora ? ' class="passato"' : '')+'>'
+    +  '<span class="q">'+quandoTxt(x.d)+'</span><span><b>'+esc(x.tit)+'.</b> '+x.txt+'</span></li>').join("")+'</ol>';
+
+  if (!att){
+    const av = avvisiBiga(r, cfg, p, inizio, tAcq);
+    if (av.length) h += '<div class="b-avvisi">'+av.map(x => '<div class="avviso">'+esc(x)+'</div>').join("")+'</div>';
+    const c = p.corr;
+    if (c.n >= 2) h += '<div class="b-nota">Tempi corretti con il diario: '+confronto(c.k)+' ('+c.n+' bighe giuste '+(gruppoModo(cfg.modo) === "amb" ? "in casa" : "con il frigo")+').</div>';
+    else h += '<div class="b-nota">Stima dal modello. Il segnale vero è la biga: segna nel diario com\'è andata e dalla seconda biga giusta i tempi si correggono da soli.</div>';
+    h += '<div class="ed-azioni"><button class="btn-primario" data-bavvia>Avvia la biga adesso</button>'
+      +  '<button class="chip" data-bics>Promemoria nel calendario</button></div>';
+  } else if (usoAperto === r.id){
+    const tr = Math.max(0, (ora - inizio.getTime())/ORA);
+    h += '<div class="b-uso"><div class="b-nota">Com\'era la biga quando l\'hai usata?</div>'
+      +  '<div class="chips" style="padding:0 14px 6px;margin-top:0">'+Object.keys(ESITI).map(k =>
+           '<button class="chip'+(esitoScelto === k ? " on" : "")+'" data-besito="'+k+'">'+ESITI[k]+'</button>').join("")+'</div>'
+      +  '<div class="param"><label>Ore dall\'impasto<em>a quando era pronta</em></label>'
+      +  '<input id="b-ore" type="number" inputmode="decimal" step="0.5" value="'+(Math.round(tr*2)/2)+'"><span class="um">h</span></div>'
+      +  '<div class="param"><label>Nota</label><input id="b-note" type="text" style="width:58%;text-align:left" placeholder="facoltativa"></div>'
+      +  '<div class="ed-azioni"><button class="btn-primario" data-bsalva>Salva nel diario</button><button class="chip" data-bchiudiuso>Indietro</button></div></div>';
+  } else {
+    h += '<div class="ed-azioni"><button class="btn-primario" data-buso>La uso adesso</button>'
+      +  '<button class="chip" data-bics>Promemoria nel calendario</button>'
+      +  '<button class="chip" data-bannulla>Annulla la biga</button></div>';
+  }
+
+  h += '<details><summary>Come capire se è pronta</summary><div class="b-segni">'
+    +  '<p><b>Pronta.</b> Profumo dolce, lattico, appena vinoso. Volume cresciuto, si apre a strappi e dentro mostra filamenti e piccoli alveoli. Superficie asciutta.</p>'
+    +  '<p><b>Indietro.</b> Sa di farina e lievito crudo, grumi compatti e chiari, volume quasi fermo. Lasciala ancora.</p>'
+    +  '<p><b>Oltre.</b> Odore pungente di aceto o acetone, colore grigiastro, umida e appiccicosa. Il pane viene acido e con poca forza.</p>'
+    +  '</div></details>';
+  h += diarioHtml();
+  box.innerHTML = h;
+}
+function confronto(k){
+  const d = Math.round(Math.abs(1-k)*100);
+  if (d < 3) return "le tue bighe seguono la curva";
+  return "le tue bighe chiedono il "+d+"% di tempo "+(k < 1 ? "in meno" : "in più")+" della curva";
+}
+function diarioHtml(){
+  const D = STORE.diario;
+  if (!D.length) return "";
+  let h = '<details><summary>Diario delle bighe ('+D.length+')</summary>';
+  ["amb","frigo"].forEach(gk => {
+    const c = correzione(gk);
+    if (c.n >= 2) h += '<div class="b-nota">'+(gk === "amb" ? "In casa" : "Con il frigo")+': '+confronto(c.k)+'.</div>';
+  });
+  D.slice().reverse().forEach(d => {
+    const data = new Date(d.inizio).toLocaleDateString("it-IT", {weekday:"short", day:"numeric", month:"short"});
+    const cond = MODI[d.modo]+" a "+gradi(d.tAmb)+(d.modo !== "amb" ? ", frigo a "+gradi(d.tFrigo) : "");
+    h += '<div class="ing"><div class="n">'+esc(data+" \u00b7 "+d.nome)
+      +  '<em>'+esc(cond+". Previste "+durata(d.orePreviste)+", pronta a "+durata(d.oreEffettive)+(d.note ? ". "+d.note : ""))+'</em></div>'
+      +  '<div style="font-size:12.5px;color:var(--ink-soft);white-space:nowrap">'+esc(ESITI[d.esito] || "")+'</div>'
+      +  '<button class="b-x" data-bdeld="'+esc(d.id)+'" aria-label="togli">\u00d7</button></div>';
+  });
+  return h+'</details>';
+}
+
+// promemoria: un file .ics con un evento e un avviso per ogni passo ancora futuro
+function scaricaIcs(r){
+  const cfg = bigaCfg(r), att = cfg.avvio;
+  const p = att || calcolaPiano(r, cfg);
+  const inizio = att ? new Date(att.inizio) : inizioPiano(cfg, p);
+  const P = passiBiga(p, inizio, att ? att.oreForno : cfg.oreForno, att ? null : tAcquaDi(cfg))
+    .filter(x => x.d.getTime() > Date.now() - 60e3);
+  icsDaPassi(r.nome, P, inizio.getTime(), "biga");
+}
+function icsDaPassi(nome, P, base, file){
+  if (!P.length) return alert("Non ci sono passi futuri da mettere in calendario.");
+  const f = d => d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+"T"+pad(d.getUTCHours())+pad(d.getUTCMinutes())+"00Z";
+  const e = s => String(s).replace(/<[^>]+>/g, "").replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+  const ev = P.map((x,i) => ["BEGIN:VEVENT", "UID:"+file+"-"+base+"-"+i+"@impasti", "DTSTAMP:"+f(new Date()),
+    "DTSTART:"+f(x.d), "DTEND:"+f(new Date(x.d.getTime()+15*60e3)),
+    "SUMMARY:"+e(x.tit+" \u00b7 "+nome), "DESCRIPTION:"+e(x.txt),
+    "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:"+e(x.tit), "TRIGGER:PT0M", "END:VALARM", "END:VEVENT"].join("\r\n"));
+  const txt = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Dosi impasti//IT", "CALSCALE:GREGORIAN"].concat(ev, ["END:VCALENDAR"]).join("\r\n");
+  const url = URL.createObjectURL(new Blob([txt], {type:"text/calendar"}));
+  const ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  // su iPhone aprire il file porta al foglio "Aggiungi a Calendario";
+  // altrove si scarica e lo apre il programma del calendario
+  if (ios) window.open(url, "_blank");
+  else {
+    const a = document.createElement("a");
+    a.href = url; a.download = file+".ics";
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+// un solo ascoltatore sul corpo del dettaglio: i blocchi si ridisegnano spesso
+const corpoDet = document.getElementById("det-corpo");
+corpoDet.addEventListener("change", e => {
+  const r = sel, t = e.target; if (!isBiga(r) || !t.closest("#biga-in")) return;
+  const cfg = bigaCfg(r);
+  if (t.dataset.bk){ cfg[t.dataset.bk] = num(t.value); }
+  else if (t.dataset.bs){ cfg[t.dataset.bs] = t.dataset.bs === "tFrigo" ? num(t.value) : t.value; }
+  else if (t.hasAttribute("data-bq")){ cfg.quando = t.value; }
+  else return;
+  salva(); renderBigaOut(r);
+});
+corpoDet.addEventListener("click", e => {
+  const r = sel; if (!isBiga(r)) return;
+  const b = e.target.closest("[data-bmodo],[data-bancora],[data-badesso],[data-bavvia],[data-bics],[data-buso],[data-bannulla],[data-besito],[data-bsalva],[data-bchiudiuso],[data-bdeld]");
+  if (!b) return;
+  e.preventDefault();
+  const cfg = bigaCfg(r), d = b.dataset;
+  const tutto = () => { salva(); renderBigaIn(r); renderBigaOut(r); };
+  if (d.bmodo){ cfg.modo = d.bmodo; return tutto(); }
+  if (d.bancora){
+    cfg.ancora = d.bancora;
+    if (cfg.ancora === "forno"){
+      const q = daLocale(cfg.quando);
+      if (!q || q.getTime() < Date.now()){
+        const dom = new Date(); dom.setDate(dom.getDate()+1); dom.setHours(20,0,0,0);
+        cfg.quando = aLocale(dom);
+      }
+    } else cfg.quando = "";
+    return tutto();
+  }
+  if (b.hasAttribute("data-badesso")){ cfg.quando = ""; return tutto(); }
+  if (b.hasAttribute("data-bavvia")){
+    const p = calcolaPiano(r, cfg);
+    cfg.avvio = { inizio:new Date().toISOString(), fasi:p.fasi, H:p.H, U:p.U, Umod:p.Umod, modo:cfg.modo,
+      oreForno:cfg.oreForno, tAmb:cfg.tAmb, tFrigo:cfg.tFrigo, acqua:r.pre.acqua, lievito:r.pre.lievito, farina:cfg.farina };
+    return tutto();
+  }
+  if (b.hasAttribute("data-bics")) return scaricaIcs(r);
+  if (b.hasAttribute("data-buso")){ usoAperto = r.id; esitoScelto = "giusta"; return renderBigaOut(r); }
+  if (b.hasAttribute("data-bchiudiuso")){ usoAperto = null; return renderBigaOut(r); }
+  if (d.besito){
+    esitoScelto = d.besito;
+    corpoDet.querySelectorAll("[data-besito]").forEach(x => x.classList.toggle("on", x.dataset.besito === esitoScelto));
+    return;
+  }
+  if (b.hasAttribute("data-bannulla")){
+    if (!confirm("Annullo la biga in corso? Non finisce nel diario.")) return;
+    delete cfg.avvio; usoAperto = null; return tutto();
+  }
+  if (b.hasAttribute("data-bsalva")){
+    const a = cfg.avvio; if (!a) return;
+    const trascorse = (Date.now() - new Date(a.inizio).getTime())/ORA;
+    const ore = num(document.getElementById("b-ore").value) || trascorse;
+    STORE.diario.push({
+      id:"d"+Date.now(), inizio:a.inizio, uso:new Date().toISOString(), ric:r.id, nome:r.nome,
+      modo:a.modo, tAmb:a.tAmb, tFrigo:a.tFrigo, acqua:a.acqua, lievito:a.lievito, farina:a.farina,
+      orePreviste:a.H, oreEffettive:ore, rapporto:unitaDopo(a.fasi, ore)/a.Umod, esito:esitoScelto,
+      note:document.getElementById("b-note").value.trim()
+    });
+    delete cfg.avvio; usoAperto = null; return tutto();
+  }
+  if (d.bdeld){
+    if (!confirm("Tolgo questa biga dal diario?")) return;
+    STORE.diario = STORE.diario.filter(x => x.id !== d.bdeld);
+    salva(); renderBigaOut(r);
+  }
+});
+
+// le bighe in corso cambiano col tempo: un giro al minuto e al ritorno sull'app
+function aggiornaTempo(){
+  if (vLista.style.display !== "none" && vDet.style.display !== "block") renderLista();
+  else if (vDet.style.display === "block" && isBiga(sel) && usoAperto !== sel.id){
+    const a = document.activeElement;
+    if (!(a && a.closest && a.closest("#biga-box"))) renderBigaOut(sel);
+  }
+}
+setInterval(aggiornaTempo, 60000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) aggiornaTempo(); });
+
+/* ---------- impasto pizza CalBal ---------- */
+// Modello ricavato facendo girare CalBal (approccio base) su circa 300 casi.
+// L'impasto esce dall'impastatrice a 24 gradi e va verso la temperatura
+// dell'ambiente o del frigo con una costante di tempo che cresce con la massa.
+// Allo staglio i panielli fanno un salto di temperatura che dipende da quanti
+// sono, poi seguono l'ambiente in fretta. Il lievito segue la formula classica
+// dei pizzaioli (ore alla 1,24, temperatura alla 2,5) usando la temperatura
+// dell'impasto ora per ora. Su 12 casi mai visti: farina e staglio identici,
+// lievito entro il 4,5%, di solito entro il 2%.
+const CB = { a:11.02082382188892, c:2.1, p:-1.2361954706050848, q:-2.4995164328032193,
+             tb:2.125, tbe:0.335, tp:0.425, tpe:0.575 };
+// W consigliata: 160,6 + 2,13 per ora + 0,005 per ogni grado-ora (temperatura alla 2,2)
+const CBW = { a:160.6066632176546, h:2.1311529663985214, s:0.004992001434937517, c:2.2, max:365 };
+const CB_K = [[2,0.019],[3,0.031],[4,0.0625],[6,0.106],[8,0.15],[12,0.294],[16,0.425],[40,0.93],[100,1]];
+const CB_B = [[2,2.9],[3,2.8],[4,2.7],[6,2.6],[8,2.45],[12,2.1],[16,1.7],[40,0.1],[100,0]];
+const CB_LIEVITI = { 1:{l:"fresco", k:1, n:"Lievito di birra fresco"}, 2:{l:"secco attivo", k:0.439, n:"Lievito secco attivo"}, 3:{l:"istantaneo", k:1/3, n:"Lievito secco istantaneo"} };
+const CB_FINE = 24;   // temperatura dell'impasto a fine impastamento, come CalBal
+function cbInterp(pts, x){
+  if (x <= pts[0][0]) return pts[0][1];
+  for (let i = 1; i < pts.length; i++) if (x <= pts[i][0]){ const a = pts[i-1], b = pts[i]; return a[1] + (b[1]-a[1])*(x-a[0])/(b[0]-a[0]); }
+  return pts[pts.length-1][1];
+}
+const cbAppretto = Ta => Math.max(1, 7.5 - 0.375*(Ta - 20));
+
+// simula la temperatura dell'impasto e somma T^c nel tempo per i due esponenti che servono
+function cbSimula(c){
+  const M = c.n*c.w/1000, taub = CB.tb*Math.pow(M, CB.tbe), taup = CB.tp*Math.pow(c.w/250, CB.tpe);
+  const fineFrigo = c.f > 0 ? 1 + c.f : 1;
+  const st = Math.max(fineFrigo, c.h - cbAppretto(c.Ta));
+  const env = t => (c.f > 0 && t >= 1 && t < 1 + c.f) ? c.Tf : c.Ta;
+  let T = CB_FINE, t = 0, S1 = 0, S2 = 0, staglio = false, Tst = null, Tesce = null;
+  const dt = 0.05, pw = (x, e) => Math.pow(Math.max(x, 0.1), e);
+  while (t < c.h - 1e-9){
+    if (c.f > 0 && Tesce === null && t >= 1 + c.f - 1e-9) Tesce = T;
+    if (!staglio && t >= st - 1e-9){ Tst = T; T = T + cbInterp(CB_K, c.n)*(c.Ta - T) + cbInterp(CB_B, c.n); staglio = true; }
+    const Tn = T + (env(t) - T)*(1 - Math.exp(-dt/(staglio ? taup : taub)));
+    S1 += dt*(pw(T, CB.c) + pw(Tn, CB.c))/2;
+    S2 += dt*(pw(T, CBW.c) + pw(Tn, CBW.c))/2;
+    T = Tn; t += dt;
+  }
+  return { S1, S2, st, Tst, Tesce };
+}
+const cbWmin = I => I < 65 ? 0 : I <= 80 ? 220 + 4*(I-65) : I <= 90 ? 280 + 6*(I-80) : 340;
+
+function cbCalcola(c){
+  const sim = cbSimula(c);
+  const Te = Math.pow(sim.S1/c.h, 1/CB.c);
+  let lkg = Math.exp(CB.a)*Math.pow(c.h, CB.p)*Math.pow(Te, CB.q);      // g di fresco per kg di farina a 65%, sale 50 g/L, olio 0
+  lkg *= Math.pow(65/c.I, 1.02)*(1 + c.S/200)/1.25*(1 + c.G/300);
+  lkg *= CB_LIEVITI[c.tipo].k;
+  const imp = c.n*c.w;
+  const r = c.I/100;
+  const F = imp/(1 + r + r*(c.S + c.G)/1000 + lkg/1000);
+  const A = F*r;
+  return {
+    sim, imp, F, A, sale:A*c.S/1000, olio:A*c.G/1000, lievito:F*lkg/1000, lkg,
+    W:Math.min(CBW.max, Math.round(CBW.a + CBW.h*c.h + CBW.s*sim.S2)), Wmin:cbWmin(c.I),
+    mozz:0.36*imp, pomod:0.504*imp, salePom:0.504*imp*0.01
+  };
+}
+
+function cbCfg(r){
+  const s = statoRic(r);
+  if (!s.cb || typeof s.cb !== "object") s.cb = {};
+  const def = { n:4, w:250, I:65, S:50, G:0, tipo:1, h:24, f:0, Ta:21, Tf:5,
+    tCucina:21, tFarina:21, mix:"plan", ancora:"parto", quando:"", pNapol:250, pTeglia:660 };
+  Object.keys(def).forEach(k => { if (s.cb[k] === undefined) s.cb[k] = def[k]; });
+  if (!(s.cb.pNapol >= 50)) s.cb.pNapol = 250;
+  if (!(s.cb.pTeglia >= 50)) s.cb.pTeglia = 660;
+  if (!CB_LIEVITI[s.cb.tipo]) s.cb.tipo = 1;
+  if (!ATTRITO[s.cb.mix]) s.cb.mix = "plan";
+  return s.cb;
+}
+// limiti che CalBal stesso rifiuta o che rompono il modello
+function cbNorm(c){
+  const x = Object.assign({}, c);
+  x.n = Math.max(1, Math.round(x.n)); x.w = Math.max(50, x.w);
+  x.I = Math.min(100, Math.max(45, x.I)); x.S = Math.max(0, x.S); x.G = Math.max(0, x.G);
+  x.h = Math.max(2, x.h); x.f = Math.min(Math.max(0, x.f), x.h - 1.5);
+  return x;
+}
+
+function cbPassi(c, R, inizio){
+  const t0 = inizio.getTime(), at = h => new Date(t0 + h*ORA), sim = R.sim, P = [];
+  const tAcq = 3*CB_FINE - c.tFarina - c.tCucina - ATTRITO[c.mix].v;
+  P.push({ d:at(0), tit:"Impasta", txt:"Acqua a <b>"+gradi(tAcq)+"</b>, impasto finito a "+CB_FINE+" gradi. "
+    + (c.f > 0 ? "Un'ora di puntata fuori, coperto." : "Puntata in massa, coperto, a "+gradi(c.Ta)+".") });
+  if (c.f > 0){
+    P.push({ d:at(1), tit:"In frigo", txt:"In massa, a "+gradi(c.Tf)+"." });
+    const fuori = 1 + c.f;
+    if (sim.st - fuori > 0.01){
+      P.push({ d:at(fuori), tit:"Fuori dal frigo", txt:"L'impasto è a circa "+gradi(sim.Tesce)+". Resta in massa a "+gradi(c.Ta)+"." });
+      P.push({ d:at(sim.st), tit:"Staglio", txt:"Panielli da "+g(c.w)+" g, appretto a "+gradi(c.Ta)+"." });
+    } else {
+      P.push({ d:at(fuori), tit:"Fuori e staglio", txt:"Esce a circa "+gradi(sim.Tesce)+": staglio subito, panielli da "+g(c.w)+" g, appretto a "+gradi(c.Ta)+"." });
+    }
+  } else {
+    P.push({ d:at(sim.st), tit:"Staglio", txt:"Panielli da "+g(c.w)+" g, appretto a "+gradi(c.Ta)+"." });
+  }
+  P.push({ d:at(c.h), tit:"In forno", txt:"Dopo "+durata(c.h - sim.st)+" di appretto." });
+  return { P, tAcq };
+}
+
+function renderCalbal(r){
+  const raw = cbCfg(r);
+  document.getElementById("det-titolo").innerHTML = esc(r.nome)+"<small>"+esc(r.sub||"")+"</small>";
+  const drv = document.getElementById("det-driver"); drv.style.display = "none"; drv.innerHTML = "";
+  document.getElementById("det-campo").innerHTML =
+    '<button class="passo" data-cbpasso="-1" aria-label="meno">−</button>'
+    + '<input type="number" inputmode="numeric" min="1" step="1" id="cb-n" value="'+raw.n+'">'
+    + '<button class="passo" data-cbpasso="1" aria-label="piu">+</button>';
+  document.getElementById("det-sotto").innerHTML = '<span class="um">panielli da</span>'
+    + '<input id="cb-w" class="cb-w" type="number" inputmode="decimal" min="50" step="10" value="'+raw.w+'"><span class="um">g</span>'
+    + '<button class="fatto" id="btn-fatto" hidden>Fatto</button>';
+  document.getElementById("det-chips").innerHTML =
+    '<button class="chip" data-cbpreset="napol">Napoletana '+g(raw.pNapol)+' g</button>'
+    + '<button class="chip" data-cbpreset="teglia">Teglia '+g(raw.pTeglia)+' g</button>';
+  document.getElementById("det-corpo").innerHTML =
+    '<div id="cb-out1"></div>'
+    + '<div class="sez">Impostazioni</div><div class="blocco biga" id="cb-in"></div>'
+    + '<div id="cb-out2"></div>';
+  renderCbIn(r); renderCbOut(r);
+  agganciaCbTesta(r);
+}
+
+function renderCbIn(r){
+  const c = cbCfg(r), box = document.getElementById("cb-in"); if (!box) return;
+  const num1 = (l,e,k,u,step) => '<div class="param"><label>'+esc(l)+(e?'<em>'+e+'</em>':'')+'</label>'
+    + '<input data-cbk="'+k+'" type="number" inputmode="decimal" step="'+(step||1)+'" value="'+c[k]+'"><span class="um">'+u+'</span></div>';
+  const sel1 = (l,k,opz) => '<div class="param"><label>'+esc(l)+'</label><select data-cbs="'+k+'">'
+    + opz.map(o => '<option value="'+o[0]+'"'+(String(o[0]) === String(c[k]) ? " selected" : "")+'>'+esc(o[1])+'</option>').join("")+'</select></div>';
+  let h = num1("Idratazione", "acqua sulla farina", "I", "%", 1)
+    + num1("Sale", "grammi per litro d'acqua", "S", "g/L", 1)
+    + num1("Olio", "grammi per litro d'acqua", "G", "g/L", 1)
+    + sel1("Lievito", "tipo", Object.keys(CB_LIEVITI).map(k => [k, CB_LIEVITI[k].l]))
+    + num1("Ore totali", "dall'impasto al forno", "h", "h", 1)
+    + num1("Di cui in frigo", "0 se tutto fuori", "f", "h", 1)
+    + num1("Ambiente", "dove lievita fuori dal frigo", "Ta", "°C", 0.5)
+    + (c.f > 0 ? num1("Frigo", "", "Tf", "°C", 0.5) : "")
+    + num1("Cucina", "dove impasti", "tCucina", "°C", 0.5)
+    + num1("Farina", "temperatura del sacco", "tFarina", "°C", 0.5)
+    + sel1("Impasti", "mix", Object.keys(ATTRITO).map(k => [k, ATTRITO[k].l]))
+    + num1("Paniello Napoletana", "peso del bottone in alto", "pNapol", "g", 10)
+    + num1("Paniello Teglia", "peso del bottone in alto", "pTeglia", "g", 10);
+  h += '<div class="segm">'+[["parto","Da quando parto"],["forno","Da quando inforno"]].map(o =>
+    '<button data-cbancora="'+o[0]+'" aria-pressed="'+(c.ancora === o[0])+'">'+o[1]+'</button>').join("")+'</div>';
+  h += '<div class="param b-quando"><label>'+(c.ancora === "forno" ? "Inforno" : "Impasto")
+    + (c.ancora === "parto" ? '<em>vuoto vuol dire adesso</em>' : '')+'</label>'
+    + '<input type="datetime-local" data-cbq value="'+esc(c.quando)+'">'
+    + (c.ancora === "parto" ? '<button class="chip" data-cbadesso>adesso</button>' : '')+'</div>';
+  box.innerHTML = h;
+}
+
+function renderCbOut(r){
+  const raw = cbCfg(r), c = cbNorm(raw);
+  const o1 = document.getElementById("cb-out1"), o2 = document.getElementById("cb-out2"); if (!o1) return;
+  const R = cbCalcola(c);
+  const q = cbNorm(raw);
+  let inizio;
+  const dq = daLocale(c.quando);
+  if (c.ancora === "forno" && dq) inizio = new Date(dq.getTime() - c.h*ORA);
+  else if (c.ancora === "parto" && dq) inizio = dq;
+  else inizio = adessoArrotondato();
+  const { P, tAcq } = cbPassi(c, R, inizio);
+  const u = ' <span style="font-size:13px">g</span>';
+  const lv = CB_LIEVITI[c.tipo];
+
+  let h = '<div class="metriche">'
+    + metrica(g(R.imp)+u, "peso impasto")
+    + metrica(g(R.F)+u, "farina")
+    + metrica(g(R.lievito)+u, "lievito "+lv.l)
+    + metrica(String(R.W), "W consigliata") + '</div>';
+
+  h += '<div class="blocco"><h3>Impasto</h3>'
+    + cbRiga("Farina", R.F, "farina", "")
+    + cbRiga("Acqua", R.A, "acqua", "a "+gradi(tAcq)+", per un impasto finito a "+CB_FINE)
+    + cbRiga("Sale", R.sale, "", nf(Math.round(R.sale/R.F*1000)/10,1)+"% sulla farina")
+    + (c.G > 0 ? cbRiga("Olio", R.olio, "", nf(Math.round(R.olio/R.F*1000)/10,1)+"% sulla farina") : "")
+    + cbRiga(lv.n, R.lievito, "", nf(Math.round(R.lievito/R.F*100000)/1000,3)+"% sulla farina")
+    + '</div>';
+  if (R.lievito < 1){
+    const sol = R.lievito*21;
+    h += '<div class="avviso">Meno di un grammo non si pesa con una bilancia da cucina. Sciogli 1 g di lievito in 20 g d\'acqua presa dalla dose e usa <b>'+g(sol)+' g</b> di questa soluzione.</div>';
+  }
+  h += '<div class="blocco"><h3>Condimenti</h3>'
+    + cbRiga("Mozzarella", R.mozz, "", g(R.mozz/c.n)+" g a paniello")
+    + cbRiga("Pomodoro scolato", R.pomod, "", g(R.pomod/c.n)+" g a paniello")
+    + cbRiga("Sale nel pomodoro", R.salePom, "", "1% del pomodoro")
+    + '</div>';
+  o1.innerHTML = h;
+
+  const ora = Date.now();
+  let k = '<div class="sez">Scaletta</div><div class="blocco biga">'
+    + '<div class="bm">'+tile(quandoTxt(P[0].d), "impasto")+tile(quandoTxt(new Date(inizio.getTime()+R.sim.st*ORA)), "staglio")+tile(quandoTxt(P[P.length-1].d), "forno")+'</div>'
+    + '<ol class="biga-passi">'+P.map(x => '<li'+(x.d.getTime() < ora - 60e3 ? ' class="passato"' : '')+'><span class="q">'+quandoTxt(x.d)+'</span><span><b>'+esc(x.tit)+'.</b> '+x.txt+'</span></li>').join("")+'</ol>'
+    + '<div class="ed-azioni"><button class="chip" data-cbics>Promemoria nel calendario</button></div></div>';
+
+  const av = [];
+  if (raw.f !== q.f) av.push("Le ore di frigo devono lasciare almeno un'ora e mezza fuori: le ho portate a "+gradi(q.f).replace(" gradi","")+".");
+  if (raw.h !== q.h) av.push("Sotto le 2 ore il modello non regge: le ho portate a 2.");
+  if (R.Wmin && R.W < R.Wmin) av.push("Per maturare basterebbe W "+R.W+", ma con idratazione "+c.I+"% serve almeno W "+R.Wmin+" per assorbirla. Usa una farina da W "+R.Wmin+" o più, oppure riduci l'acqua o allunga i tempi.");
+  if (R.W >= CBW.max) av.push("W "+CBW.max+" è il massimo di CalBal: con tempi così lunghi serve la farina più forte che trovi, tipo manitoba.");
+  if (tAcq < 4) av.push("L'acqua dovrebbe stare a "+gradi(tAcq)+": raffredda anche la farina in frigo, oppure usa ghiaccio pesato dentro la dose.");
+  if (c.ancora === "forno" && inizio.getTime() < ora - 5*60e3) av.push("Per infornare a quell'ora l'impasto andava fatto "+quandoTxt(inizio)+".");
+  k += '<div class="sez">Farina</div><div class="blocco">'
+    + '<div class="ing"><div class="n">W consigliata<em>per la maturazione in '+durata(c.h)+'</em></div><div class="g">'+R.W+'</div></div>'
+    + '<div class="ing"><div class="n">W minima<em>per reggere idratazione '+c.I+'%</em></div><div class="g">'+(R.Wmin || "nessuna")+'</div></div></div>';
+  if (av.length) k += av.map(x => '<div class="avviso">'+esc(x)+'</div>').join("");
+  k += '<div class="sez">Note</div>'
+    + '<div class="avviso">Il conto riproduce l\'approccio base di CalBal: stessi tempi di staglio, stessa farina, lievito entro qualche punto percentuale. Vale se l\'impasto esce dall\'impastatrice a '+CB_FINE+' gradi: più caldo vuol dire meno lievito, più freddo il contrario.</div>'
+    + '<footer class="nota-file">Modello ricavato da circa 300 calcoli fatti su calbal.altervista.org.</footer>';
+  o2.innerHTML = k;
+}
+function cbRiga(n, v, cls, e){
+  return '<div class="ing'+(cls ? " "+cls : "")+'"><div class="n">'+esc(n)+(e ? '<em>'+esc(e)+'</em>' : '')+'</div><div class="g">'+g(v)+' <span>g</span></div></div>';
+}
+
+function agganciaCbTesta(r){
+  const c = cbCfg(r), n = document.getElementById("cb-n"), w = document.getElementById("cb-w"), fatto = document.getElementById("btn-fatto");
+  [n, w].forEach(x => {
+    x.onfocus = () => { fatto.hidden = false; setTimeout(() => x.select(), 0); };
+    x.onblur = () => { fatto.hidden = true; };
+  });
+  n.oninput = () => { const v = num(n.value); if (v >= 1){ c.n = Math.round(v); salva(); renderCbOut(r); } };
+  w.oninput = () => { const v = num(w.value); if (v >= 50){ c.w = v; salva(); renderCbOut(r); } };
+  fatto.onclick = () => { if (document.activeElement) document.activeElement.blur(); renderCalbal(r); };
+  document.querySelectorAll("[data-cbpasso]").forEach(b => b.onclick = () => {
+    c.n = Math.max(1, Math.round(c.n) + +b.dataset.cbpasso); n.value = c.n; salva(); renderCbOut(r);
+  });
+  document.querySelectorAll("[data-cbpreset]").forEach(b => b.onclick = () => {
+    Object.assign(c, b.dataset.cbpreset === "teglia" ? {w:c.pTeglia, I:80, S:30, G:20} : {w:c.pNapol, I:65, S:50, G:0});
+    salva(); renderCalbal(r);
+  });
+}
+// campi e bottoni nel corpo: un ascoltatore solo, come per la biga
+corpoDet.addEventListener("change", e => {
+  const r = sel, t = e.target; if (!r || !r.calbal || !t.closest("#cb-in")) return;
+  const c = cbCfg(r);
+  if (t.dataset.cbk){
+    const prima = c.f;
+    c[t.dataset.cbk] = num(t.value);
+    if (t.dataset.cbk === "pNapol" || t.dataset.cbk === "pTeglia"){
+      if (!(c[t.dataset.cbk] >= 50)) c[t.dataset.cbk] = t.dataset.cbk === "pNapol" ? 250 : 660;
+      salva();
+      // solo la scritta: ridisegnare i bottoni farebbe perdere il tocco che arriva subito dopo
+      const bn = document.querySelector('[data-cbpreset="napol"]'), bt = document.querySelector('[data-cbpreset="teglia"]');
+      if (bn) bn.textContent = "Napoletana "+g(c.pNapol)+" g";
+      if (bt) bt.textContent = "Teglia "+g(c.pTeglia)+" g";
+      return;
+    }
+    salva(); renderCbOut(r);
+    if ((prima > 0) !== (c.f > 0)) renderCbIn(r);
+  }
+  else if (t.dataset.cbs){ c[t.dataset.cbs] = t.dataset.cbs === "tipo" ? +t.value : t.value; salva(); renderCbOut(r); }
+  else if (t.hasAttribute("data-cbq")){ c.quando = t.value; salva(); renderCbOut(r); }
+});
+corpoDet.addEventListener("click", e => {
+  const r = sel; if (!r || !r.calbal) return;
+  const b = e.target.closest("[data-cbancora],[data-cbadesso],[data-cbics]"); if (!b) return;
+  e.preventDefault();
+  const c = cbCfg(r);
+  if (b.dataset.cbancora){
+    c.ancora = b.dataset.cbancora;
+    if (c.ancora === "forno"){
+      const q = daLocale(c.quando);
+      if (!q || q.getTime() < Date.now()){ const d = new Date(); d.setDate(d.getDate()+1); d.setHours(20,0,0,0); c.quando = aLocale(d); }
+    } else c.quando = "";
+    salva(); renderCbIn(r); renderCbOut(r); return;
+  }
+  if (b.hasAttribute("data-cbadesso")){ c.quando = ""; salva(); renderCbIn(r); renderCbOut(r); return; }
+  if (b.hasAttribute("data-cbics")){
+    const q = cbNorm(c), R = cbCalcola(q), dq = daLocale(q.quando);
+    const inizio = q.ancora === "forno" && dq ? new Date(dq.getTime() - q.h*ORA) : q.ancora === "parto" && dq ? dq : adessoArrotondato();
+    const P = cbPassi(q, R, inizio).P.filter(x => x.d.getTime() > Date.now() - 60e3);
+    icsDaPassi(r.nome, P, inizio.getTime(), "pizza");
+  }
+});
 
 /* ---------- editor ---------- */
 const TIPI_RIGA = [["","normale"],["f","farina"],["w","acqua o liquido"],["l","licoli o lievito madre"],["s","sale"],["o","facoltativo"],["a","alternativa"]];
@@ -1256,7 +2081,7 @@ function renderEditor(){
       +  edPct("Acqua", "sulla farina del preimpasto", "pre.acqua", b.pre.acqua)
       +  edPct("Lievito", "sulla farina del preimpasto", "pre.lievito", b.pre.lievito)
       +  '</div>';
-    h += '<div class="blocco"><h3>Impasto</h3>'
+    if (!b.soloBiga) h += '<div class="blocco"><h3>Impasto</h3>'
       +  edPct("Idratazione", "sulla farina totale, acqua del preimpasto compresa", "idro", b.idro||0.65)
       +  edPct("Lievito", "sulla farina aggiunta", "lievImpasto", b.lievImpasto||0)
       +  '<div class="ed-righe" id="ed-altri">'+(b.altri||[]).map(rigaAltro).join("")+'</div>'
@@ -1420,7 +2245,7 @@ document.getElementById("ed-salva").addEventListener("click", () => {
   const b = bozza;
   if (!b.nome.trim()) return alert("Manca il nome.");
   if (b.tipo === "pre"){
-    if (!(b.pre.quota > 0 && b.pre.quota < 1)) return alert("La farina nel preimpasto deve stare fra 0 e 100%.");
+    if (!(b.pre.quota > 0 && (b.pre.quota < 1 || (b.soloBiga && b.pre.quota <= 1)))) return alert("La farina nel preimpasto deve stare fra 0 e 100%.");
     if (!(b.idro > 0)) return alert("Manca l'idratazione.");
     if (b.idro < b.pre.quota*b.pre.acqua) return alert("L'acqua del preimpasto supera l'idratazione totale: l'acqua dell'impasto verrebbe negativa.");
   } else {
@@ -1432,7 +2257,7 @@ document.getElementById("ed-salva").addEventListener("click", () => {
 
 /* ---------- esporta e importa ---------- */
 function esporta(){
-  const dati = JSON.stringify({ formato:"impasti", data:new Date().toISOString(), mod:STORE.mod, nuove:STORE.nuove }, null, 1);
+  const dati = JSON.stringify({ formato:"impasti", data:new Date().toISOString(), mod:STORE.mod, nuove:STORE.nuove, diario:STORE.diario }, null, 1);
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([dati], {type:"application/json"}));
   a.download = "impasti_mie_ricette.json";
@@ -1441,14 +2266,16 @@ function esporta(){
 function importa(testo){
   let d;
   try{ d = JSON.parse(testo); }catch(e){ return alert("Il file non e' leggibile."); }
-  if (!d || (!d.mod && !d.nuove)) return alert("Questo file non contiene ricette esportate da qui.");
+  if (!d || (!d.mod && !d.nuove && !d.diario)) return alert("Questo file non contiene ricette esportate da qui.");
   Object.keys(d.mod || {}).forEach(k => STORE.mod[k] = d.mod[k]);
   (d.nuove || []).forEach(r => {
     const i = STORE.nuove.findIndex(x => x.id === r.id);
     if (i < 0) STORE.nuove.push(r); else STORE.nuove[i] = r;
   });
+  (d.diario || []).forEach(x => { if (x && x.id && !STORE.diario.some(y => y.id === x.id)) STORE.diario.push(x); });
+  STORE.diario.sort((a,b) => String(a.inizio).localeCompare(String(b.inizio)));
   salva(); ricostruisci(); renderLista(); mostra("lista");
-  alert("Importate "+Object.keys(d.mod||{}).length+" modifiche e "+(d.nuove||[]).length+" ricette.");
+  alert("Importate "+Object.keys(d.mod||{}).length+" modifiche, "+(d.nuove||[]).length+" ricette e "+(d.diario||[]).length+" bighe del diario.");
 }
 
 // toccare fuori da un campo chiude la tastiera: su iOS non succede da solo

@@ -1,7 +1,7 @@
 // Service worker di Dosi impasti.
 // Rete prima, cache come rete di scorta. Quando cambia il contenuto dei file
 // alzo VERSIONE: le cache vecchie vengono buttate all'attivazione.
-const VERSIONE = "impasti-v3";
+const VERSIONE = "impasti-v9";
 const FILE = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {
